@@ -3,12 +3,12 @@ package models
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_Product_Const(t *testing.T) {
-	assert.Equal(t, "The Name field is required.", ProductValidationNameRequired)
-	assert.Equal(t, "The Price must be greater than or equal 0.", ProductValidationPriceGte)
+	require.Equal(t, "The Name field is required.", ProductValidationNameRequired)
+	require.Equal(t, "The Price must be greater than or equal 0.", ProductValidationPriceGte)
 }
 
 func Test_Product_Validate(t *testing.T) {
@@ -57,8 +57,8 @@ func Test_Product_Validate(t *testing.T) {
 
 			messages := tc.product.Validate()
 
-			assert.Equal(t, tc.wantLen, len(messages))
-			assert.Equal(t, tc.wantMessages, messages)
+			require.Equal(t, tc.wantLen, len(messages))
+			require.Equal(t, tc.wantMessages, messages)
 		})
 	}
 }
@@ -94,8 +94,8 @@ func Test_Product_Fill(t *testing.T) {
 			product := &Product{}
 			product.Fill(tc.wantParams)
 
-			assert.Equal(t, tc.wantParams.Name, product.Name)
-			assert.Equal(t, tc.wantParams.Price, product.Price)
+			require.Equal(t, tc.wantParams.Name, product.Name)
+			require.Equal(t, tc.wantParams.Price, product.Price)
 		})
 	}
 }

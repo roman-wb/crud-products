@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/roman-wb/crud-products/pkg/utils"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_HomeHandler(t *testing.T) {
@@ -15,6 +15,6 @@ func Test_HomeHandler(t *testing.T) {
 
 	HomeHandler(res, req)
 
-	assert.Equal(t, "/products", res.Header().Values(utils.HeaderLocation)[0])
-	assert.Equal(t, http.StatusTemporaryRedirect, res.Result().StatusCode)
+	require.Equal(t, "/products", res.Header().Values(utils.HeaderLocation)[0])
+	require.Equal(t, http.StatusTemporaryRedirect, res.Result().StatusCode)
 }

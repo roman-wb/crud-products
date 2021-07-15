@@ -4,15 +4,15 @@ import (
 	"testing"
 
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_NewRepos(t *testing.T) {
 	db := &pgxpool.Pool{}
 	repos := NewRepos(db)
 
-	assert.NotEqual(t, nil, 1)
+	require.NotEqual(t, nil, 1)
 
-	assert.NotNil(t, repos.Product)
-	assert.Equal(t, db, repos.Product.db)
+	require.NotNil(t, repos.Product)
+	require.Equal(t, db, repos.Product.db)
 }

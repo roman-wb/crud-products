@@ -41,7 +41,7 @@ func main() {
 
 	db, err := pgxpool.ConnectConfig(context.Background(), poolConfig)
 	if err != nil {
-		logger.Sugar().Fatalf("Unable to connect to database: %v", err)
+		logger.Sugar().Fatalf("unable to connect to database: %v", err)
 	}
 	defer db.Close()
 
@@ -59,6 +59,6 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), ShutdownTimeout)
 	defer cancel()
 
-	server.Shutdown(ctx) //nolint:errcheck
-	logger.Sugar().Infof("Shutdown successful")
+	server.Shutdown(ctx)
+	logger.Sugar().Infof("shutdown successful")
 }

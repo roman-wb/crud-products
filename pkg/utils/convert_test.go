@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_DataToJson(t *testing.T) {
@@ -47,7 +47,7 @@ func Test_DataToJson(t *testing.T) {
 			t.Parallel()
 
 			got := DataToJson(tc.data)
-			assert.Equal(t, tc.want, got)
+			require.Equal(t, tc.want, got)
 		})
 	}
 }
@@ -81,7 +81,7 @@ func Test_BodyToString(t *testing.T) {
 			t.Parallel()
 
 			got := BodyToString(bytes.NewBufferString(tc.data))
-			assert.Equal(t, tc.want, got)
+			require.Equal(t, tc.want, got)
 		})
 	}
 }

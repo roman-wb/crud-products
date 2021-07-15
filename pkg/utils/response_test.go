@@ -5,16 +5,15 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_Response_Const(t *testing.T) {
-	// then
-	assert.Equal(t, "Location", HeaderLocation)
-	assert.Equal(t, "Content-Type", HeaderContentType)
-	assert.Equal(t, "application/json", ContentTypeJSON)
-	assert.Equal(t, "Internal error", MessageInternalError)
-	assert.Equal(t, "Not found", MessageNotFound)
+	require.Equal(t, "Location", HeaderLocation)
+	require.Equal(t, "Content-Type", HeaderContentType)
+	require.Equal(t, "application/json", ContentTypeJSON)
+	require.Equal(t, "Internal error", MessageInternalError)
+	require.Equal(t, "Not found", MessageNotFound)
 }
 
 func Test_ResponseOK(t *testing.T) {
@@ -30,9 +29,9 @@ func Test_ResponseOK(t *testing.T) {
 	ResponseOK(res, data)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusOK, res.Result().StatusCode)
-	assert.Equal(t, DataToJson(data), BodyToString(res.Body))
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusOK, res.Result().StatusCode)
+	require.Equal(t, DataToJson(data), BodyToString(res.Body))
 }
 
 func Test_ResponseCreate(t *testing.T) {
@@ -48,9 +47,9 @@ func Test_ResponseCreate(t *testing.T) {
 	ResponseCreate(res, data)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusCreated, res.Result().StatusCode)
-	assert.Equal(t, DataToJson(data), BodyToString(res.Body))
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusCreated, res.Result().StatusCode)
+	require.Equal(t, DataToJson(data), BodyToString(res.Body))
 }
 
 func Test_ResponseNoContent(t *testing.T) {
@@ -61,9 +60,9 @@ func Test_ResponseNoContent(t *testing.T) {
 	ResponseNoContent(res)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusNoContent, res.Result().StatusCode)
-	assert.Equal(t, "", BodyToString(res.Body))
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusNoContent, res.Result().StatusCode)
+	require.Equal(t, "", BodyToString(res.Body))
 }
 
 func Test_ResponseInvalid(t *testing.T) {
@@ -79,9 +78,9 @@ func Test_ResponseInvalid(t *testing.T) {
 	ResponseInvalid(res, data)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusUnprocessableEntity, res.Result().StatusCode)
-	assert.Equal(t, DataToJson(data), BodyToString(res.Body))
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusUnprocessableEntity, res.Result().StatusCode)
+	require.Equal(t, DataToJson(data), BodyToString(res.Body))
 }
 
 func Test_ResponseInternalError(t *testing.T) {
@@ -92,9 +91,9 @@ func Test_ResponseInternalError(t *testing.T) {
 	ResponseInternalError(res)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusInternalServerError, res.Result().StatusCode)
-	assert.Equal(t, DataToJson(ResponseMessage{
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusInternalServerError, res.Result().StatusCode)
+	require.Equal(t, DataToJson(ResponseMessage{
 		Message: MessageInternalError,
 	}), BodyToString(res.Body))
 }
@@ -107,9 +106,9 @@ func Test_ResponseNotFound(t *testing.T) {
 	ResponseNotFound(res)
 
 	// then
-	assert.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
-	assert.Equal(t, http.StatusNotFound, res.Result().StatusCode)
-	assert.Equal(t, DataToJson(ResponseMessage{
+	require.Equal(t, ContentTypeJSON, res.Header().Values(HeaderContentType)[0])
+	require.Equal(t, http.StatusNotFound, res.Result().StatusCode)
+	require.Equal(t, DataToJson(ResponseMessage{
 		Message: MessageNotFound,
 	}), BodyToString(res.Body))
 }

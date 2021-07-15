@@ -9,16 +9,16 @@ services:
       PGDATA: /data/postgres
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   migrate:
     image: migrate/migrate
     volumes:
       - ./migrations:/migrations
     depends_on:
-      - db
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      db:
+        condition: service_healthy
     command: -path=/migrations -database postgres://user:password@db:5432/test_db?sslmode=disable up

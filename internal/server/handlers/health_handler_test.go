@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/roman-wb/crud-products/pkg/utils"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_HealthHandler(t *testing.T) {
@@ -14,9 +14,9 @@ func Test_HealthHandler(t *testing.T) {
 
 	HealthHandler(res, nil)
 
-	assert.Equal(t, utils.ContentTypeJSON, res.Header().Values(utils.HeaderContentType)[0])
-	assert.Equal(t, http.StatusOK, res.Result().StatusCode)
-	assert.Equal(t, utils.DataToJson(ResponseHealth{
+	require.Equal(t, utils.ContentTypeJSON, res.Header().Values(utils.HeaderContentType)[0])
+	require.Equal(t, http.StatusOK, res.Result().StatusCode)
+	require.Equal(t, utils.DataToJson(ResponseHealth{
 		Status: "ok",
 	}), utils.BodyToString(res.Body))
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/roman-wb/crud-products/internal/models"
 	"github.com/roman-wb/crud-products/pkg/test"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_NewProductRepo(t *testing.T) {
@@ -19,7 +19,7 @@ func Test_NewProductRepo(t *testing.T) {
 	db := &pgxpool.Pool{}
 	repo := NewProductRepo(db)
 
-	assert.Equal(t, db, repo.db)
+	require.Equal(t, db, repo.db)
 }
 
 func Test_ProductRepo_All(t *testing.T) {
@@ -48,14 +48,14 @@ func Test_ProductRepo_All(t *testing.T) {
 
 		sql := `INSERT INTO products (id, name, price) VALUES (1, 'Test 1', 100.99), (2, 'Test 2', 0)`
 		_, err := db.Exec(context.Background(), sql)
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
 		gotProducts, err := repo.All(context.Background())
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
-		assert.Equal(t, len(wantProducts), len(*gotProducts))
+		require.Equal(t, len(wantProducts), len(*gotProducts))
 		for i, tc := range wantProducts {
-			assert.Equal(t, tc, (*gotProducts)[i])
+			require.Equal(t, tc, (*gotProducts)[i])
 		}
 	})
 
@@ -63,9 +63,9 @@ func Test_ProductRepo_All(t *testing.T) {
 		defer test.Truncate()
 
 		goytProducts, err := repo.All(context.Background())
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
-		assert.Equal(t, 0, len(*goytProducts))
+		require.Equal(t, 0, len(*goytProducts))
 	})
 }
 
@@ -84,12 +84,12 @@ func Test_ProductRepo_Find(t *testing.T) {
 
 		sql := `INSERT INTO products (id, name, price) VALUES (1, 'Test 1', 100.99), (2, 'Test 2', 0)`
 		_, err := db.Exec(context.Background(), sql)
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
 		gotProduct, err := repo.Find(context.Background(), 1)
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
-		assert.Equal(t, wantProduct, *gotProduct)
+		require.Equal(t, wantProduct, *gotProduct)
 	})
 
 	t.Run("Not exist product", func(t *testing.T) {
@@ -97,12 +97,12 @@ func Test_ProductRepo_Find(t *testing.T) {
 
 		sql := `INSERT INTO products (id, name, price) VALUES (1, 'Test 1', 100.99), (2, 'Test 2', 0)`
 		_, err := db.Exec(context.Background(), sql)
-		assert.Nil(t, err)
+		require.Nil(t, err)
 
 		gotProduct, err := repo.Find(context.Background(), 10)
 
-		assert.Nil(t, gotProduct)
-		assert.Error(t, pgx.ErrNoRows, err)
+		require.Nil(t, gotProduct)
+		require.Error(t, pgx.ErrNoRows, err)
 	})
 }
 
@@ -119,7 +119,7 @@ func Test_Create(t *testing.T) {
 
 	gotErr := repo.Create(context.Background(), product)
 
-	assert.Nil(t, gotErr)
+	require.Nil(t, gotErr)
 }
 
 func Test_Update(t *testing.T) {
@@ -137,16 +137,16 @@ func Test_Update(t *testing.T) {
 
 	sql := `INSERT INTO products (id, name, price) VALUES (1, 'Test 1', 100.99), (2, 'Test 2', 0)`
 	_, err := db.Exec(context.Background(), sql)
-	assert.Nil(t, err)
+	require.Nil(t, err)
 
 	err = repo.Update(context.Background(), wantProduct1)
-	assert.Nil(t, err)
+	require.Nil(t, err)
 
 	gotProducts, gotErr := repo.All(context.Background())
-	assert.Nil(t, gotErr)
+	require.Nil(t, gotErr)
 
-	assert.Equal(t, (*gotProducts)[0], *wantProduct1)
-	assert.Equal(t, (*gotProducts)[1], *wantProduct2)
+	require.Equal(t, (*gotProducts)[0], *wantProduct1)
+	require.Equal(t, (*gotProducts)[1], *wantProduct2)
 }
 
 func Test_Destroy(t *testing.T) {
@@ -163,14 +163,14 @@ func Test_Destroy(t *testing.T) {
 
 	sql := `INSERT INTO products (id, name, price) VALUES (1, 'Test 1', 100.99), (2, 'Test 2', 0)`
 	_, err := db.Exec(context.Background(), sql)
-	assert.Nil(t, err)
+	require.Nil(t, err)
 
 	err = repo.Destroy(context.Background(), 2)
-	assert.Nil(t, err)
+	require.Nil(t, err)
 
 	gotProducts, err := repo.All(context.Background())
-	assert.Nil(t, err)
+	require.Nil(t, err)
 
-	assert.Equal(t, 1, len(*gotProducts))
-	assert.Equal(t, wantProduct, (*gotProducts)[0])
+	require.Equal(t, 1, len(*gotProducts))
+	require.Equal(t, wantProduct, (*gotProducts)[0])
 }

@@ -9,7 +9,7 @@ fi
 
 echo "Want: '$want'";
 
-count=1
+count=3
 timeout=3
 while [ $count -gt 0 ]
 do
@@ -18,7 +18,8 @@ do
     echo "Got: '$got'"
 
     if [[ $want == $got ]]; then
-        $1
+        echo "EXEC...";
+        exec $1
         break
     fi
 

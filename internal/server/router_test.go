@@ -93,7 +93,7 @@ func Test_NewRouter(t *testing.T) {
 
 	for _, tc := range testCases {
 		tc := tc
-		name := fmt.Sprintf("request %s %s should be %v", tc.method, tc.query, tc.want)
+		name := fmt.Sprintf("Request %s %s should be %v", tc.method, tc.query, tc.want)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 

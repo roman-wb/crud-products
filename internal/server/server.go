@@ -24,7 +24,7 @@ func Run(logger *zap.Logger, repos *repos.Repos) *http.Server {
 	}
 
 	go func() {
-		logger.Sugar().Infof("Listen server on %s", server.Addr)
+		logger.Sugar().Infof("listen server on %s", server.Addr)
 		err := server.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
 			logger.Sugar().Fatal(err)
