@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-want=`ls -t migrations 2>&1 | head -1 | egrep -o '[0-9]+'`
+want=`ls migrations 2>&1 | sort -r | head -1 | egrep -o '[0-9]+'`
 c=$(echo $want | xargs) 
 if [[ -z $want ]]; then
     echo "Nothing migrate";
@@ -20,10 +20,12 @@ do
     if [[ $want == $got ]]; then
         echo "EXEC...";
         exec $1
-        break
+        exit 0
     fi
 
     echo "Waiting migrate...";
     sleep $timeout
     count=$(($count-1))
 done
+
+exit 1

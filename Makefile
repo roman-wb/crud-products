@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: server-run docker-dev-up create-migration code code-style code-lint docker-test-up docker-test-up generate test unit-test cover psql
+.PHONY: server-run docker-dev-up create-migration generate code code-style code-lint docker-test-up test unit-test cover pre-commit psql
 
 # Development
 
@@ -26,16 +26,21 @@ code-style:
 code-lint:
 	docker run --rm -v `pwd`:/app -w /app golangci/golangci-lint golangci-lint run -v
 
+docker-test-up:
+	docker-compose -p crud-products_test -f docker-compose.test.yml up --remove-orphans --build
+
 test:
-	docker-compose -f docker-compose.test.yml up -d --remove-orphans --build
-	./wait-for-migrate.sh "go test -count 1 -race -coverprofile=coverage.out `go list ./... | grep -v ./mock_handlers | grep -v ./test`"
-	docker-compose -f docker-compose.test.yml down --volume
+	go test -count 1 -race -coverprofile=coverage.out ./...
 
 unit-test:
-	go test -count 1 -short -race -coverprofile=coverage.out `go list ./... | grep -v ./mock_handlers | grep -v ./test`
+	go test -short -count 1 -race -coverprofile=coverage.out ./...
 
 cover:
-	go tool cover -html=coverage.out
+	go tool cover -func -html=coverage.out
+
+pre-commit:
+	make code
+	make test
 
 # Utils
 

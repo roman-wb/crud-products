@@ -1,5 +1,16 @@
 # Test project - CRUD Products
 
+[![Build Status](https://www.travis-ci.com/roman-wb/crud-products.svg?branch=master)](https://www.travis-ci.com/roman-wb/crud-products)
+![Go Report](https://goreportcard.com/badge/github.com/roman-wb/crud-products)
+![Repository Top Language](https://img.shields.io/github/languages/top/roman-wb/crud-products)
+![Scrutinizer Code Quality](https://raw.githubusercontent.com/roman-wb/crud-products/master/coverage_badge.png)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/roman-wb/crud-products)
+![Github Repository Size](https://img.shields.io/github/repo-size/roman-wb/crud-products)
+![Lines of code](https://img.shields.io/tokei/lines/github/roman-wb/crud-products)
+![License](https://img.shields.io/badge/license-MIT-green)
+![GitHub last commit](https://img.shields.io/github/last-commit/roman-wb/crud-products)
+![Simply the best ;)](https://img.shields.io/badge/simply-the%20best%20%3B%29-orange)
+
 ## Feature Overview
 - REST API
 - PostgreSQL
@@ -35,7 +46,8 @@ make test
 
 ## Makefile commands
 - `make server-run` - Run server with .env config
-- `make docker-dev-up` - Run development environment with db and hot reload server
+- `make docker-dev-up` - Run development environment and hot reload server
+- `make docker-test-up` - Run test environment
 - `make create-migration name={your_name}` - Create migration in dir `/migrations`
 - `make generate` - Generate mocks interfaces
 - `make code` - Run `code-style && code-lint`
@@ -59,7 +71,6 @@ make test
 - Auth
 - Tests with Postman
 - Metrics (go / pgx)
-- CI/CD
 
 ## License
 

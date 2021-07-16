@@ -59,6 +59,9 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), ShutdownTimeout)
 	defer cancel()
 
-	server.Shutdown(ctx)
-	logger.Sugar().Infof("shutdown successful")
+	err = server.Shutdown(ctx)
+	if err != nil {
+		logger.Sugar().Fatalf("shutdown failure: %v", err)
+	}
+	logger.Sugar().Info("shutdown successful")
 }
