@@ -1,15 +1,15 @@
-# Test project - CRUD Products
-
+[![codecov](https://codecov.io/gh/roman-wb/crud-products/branch/master/graph/badge.svg?token=U7EV2HFYUA)](https://codecov.io/gh/roman-wb/crud-products)
 [![Build Status](https://www.travis-ci.com/roman-wb/crud-products.svg?branch=master)](https://www.travis-ci.com/roman-wb/crud-products)
 ![Go Report](https://goreportcard.com/badge/github.com/roman-wb/crud-products)
 ![Repository Top Language](https://img.shields.io/github/languages/top/roman-wb/crud-products)
-![Scrutinizer Code Quality](https://raw.githubusercontent.com/roman-wb/crud-products/master/coverage_badge.png)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/roman-wb/crud-products)
 ![Github Repository Size](https://img.shields.io/github/repo-size/roman-wb/crud-products)
 ![Lines of code](https://img.shields.io/tokei/lines/github/roman-wb/crud-products)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![GitHub last commit](https://img.shields.io/github/last-commit/roman-wb/crud-products)
 ![Simply the best ;)](https://img.shields.io/badge/simply-the%20best%20%3B%29-orange)
+
+# Test project - CRUD Products
 
 ## Feature Overview
 - REST API
